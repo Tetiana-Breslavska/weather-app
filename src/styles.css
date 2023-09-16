@@ -81,7 +81,7 @@ p {
 
 .container {
   width: 60%;
-  margin: 60px auto;
+  margin: 60px auto 10px auto;
   border: 3px solid #2cccff;
   border-radius: 4px;
   padding: 20px;
@@ -181,4 +181,9 @@ p {
   padding: 5px 7px;
   border: none;
   box-shadow: 5px 5px 5px #d4d9e6;
+}
+
+.open-source{
+  width: 60%;
+  margin: 0 auto ;
 }
