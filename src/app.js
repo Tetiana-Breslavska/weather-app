@@ -2,6 +2,8 @@
 
 function showCityForecast(response) {
     console.log(response.data);
+    fDegree.classList.remove("active");
+    cDegree.classList.add("active")
     let city = response.data.city;
     celsiusTemp = Math.round(response.data.temperature.current);
     let humidity = response.data.temperature.humidity;
@@ -71,7 +73,7 @@ form.addEventListener("submit", function (event) {
     let currentCityWrap = document.querySelector(".current-city");
     if (inputCityValue) {
         let apiKey = "0571at3f6f353aad9b4552f8eoe873f5";
-        
+
         let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${inputCityValue}&key=${apiKey}&units=metric`;
         axios.get(apiUrl)
             .then(showCityForecast)
@@ -102,23 +104,20 @@ citiesList.addEventListener("click", showCityFromList);
 
 ///////convert units of temp
 
-    let fDegree = document.querySelector("#f-degree");
-    fDegree.addEventListener("click", function (event) {
-        event.preventDefault();
-        fDegree.classList.add("active");
-        cDegree.classList.remove("active")
-        let tempWrap = document.querySelector(".current-temp");
-        tempWrap.innerHTML = Math.round((celsiusTemp * 9 / 5) + 32);
-    })
+let fDegree = document.querySelector("#f-degree");
+fDegree.addEventListener("click", function (event) {
+    event.preventDefault();
+    fDegree.classList.add("active");
+    cDegree.classList.remove("active")
+    let tempWrap = document.querySelector(".current-temp");
+    tempWrap.innerHTML = Math.round((celsiusTemp * 9 / 5) + 32);
+})
 
-    let cDegree = document.querySelector("#c-degree");
-    cDegree.addEventListener("click", function (event) {
-        event.preventDefault();
-        fDegree.classList.remove("active");
-        cDegree.classList.add("active")
-        let tempWrap = document.querySelector(".current-temp");
-        tempWrap.innerHTML = celsiusTemp;
-    })
-
-
-
+let cDegree = document.querySelector("#c-degree");
+cDegree.addEventListener("click", function (event) {
+    event.preventDefault();
+    fDegree.classList.remove("active");
+    cDegree.classList.add("active")
+    let tempWrap = document.querySelector(".current-temp");
+    tempWrap.innerHTML = celsiusTemp;
+})

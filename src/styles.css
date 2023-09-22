@@ -63,6 +63,7 @@ h1 a {
   font-size: 25px;
   transition: ease-in-out 0.5s;
 }
+
 /* 
 h1 a:hover {
   color: blue;
@@ -77,6 +78,10 @@ sup span {
 
 p {
   margin: 0;
+}
+
+sup{
+  white-space: nowrap;
 }
 
 .container {
@@ -141,10 +146,26 @@ p {
   margin: 50px 0;
 }
 
+.basic-parameters{
+  width: 77%;
+}
+
 .add-parameters {
   margin-top: 30px;
   margin-left: 50px;
+  width: 23%;
 }
+
+.current-weather-desc::first-letter{
+  text-transform: capitalize;
+
+}
+
+.current-weather-icon img{
+  width: 150px
+}
+
+
 
 .week-weather {
   justify-content: space-around;
@@ -183,12 +204,12 @@ p {
   box-shadow: 5px 5px 5px #d4d9e6;
 }
 
-.open-source{
+.open-source {
   width: 60%;
-  margin: 0 auto ;
+  margin: 0 auto;
 }
 
-.active{
+.active {
   color: #0B5ED7;
   cursor: default;
 }
