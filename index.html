@@ -10,12 +10,11 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
+    <!-- <link
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/> -->
     <link rel="stylesheet" href="src/styles.css" />
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   </head>
@@ -23,7 +22,7 @@
     <div class="container">
       <header>
         <ul id="citiesList">
-          <li><a href="#" id="zaporizhzhia">Zaporizhzhia</a></li>
+          <li><a href="#" id="zaporizhia">Zaporizhia</a></li>
           <li><a href="#" id="lviv">Lviv</a></li>
           <li><a href="#" id="sydney">Sydney</a></li>
           <li><a href="#" id="kyiv">Kyiv</a></li>
@@ -44,9 +43,9 @@
             <span class="current-weather-emoji"></span>
             <span class="current-temp"></span>
             <sup>
-              <a href="#" id="c-degree">&#8451;</a>
-              <!-- <span>|</span>
-              <a href="#" id="f-degree">&#8457;</a> -->
+              <a href="#" id="c-degree" class="active">&#8451;</a>
+              <span>|</span>
+              <a href="#" id="f-degree">&#8457;</a>
             </sup>
           </h1>
 

@@ -1,16 +1,19 @@
 //////////////////city forecast
 
 function showCityForecast(response) {
-    // console.log(response.data);
+    console.log(response.data);
     let city = response.data.name;
-    let temperature = Math.round(response.data.main.temp);
+    celsiusTemp = Math.round(response.data.main.temp);
     let humidity = response.data.main.humidity;
     let wind = Math.round(response.data.wind.speed);
     let weatherDesc = response.data.weather[0].main;
+    
+    // let icon = 
     const weatherEmoji = {
         "clear": "☀️",
         "clouds": "☁️",
         "rain": "🌧️",
+        "drizzle": "🌧️",
         "snow": "🌨️",
         "thunderstorm": "⛈️"
 
@@ -20,7 +23,7 @@ function showCityForecast(response) {
     let currentCityWrap = document.querySelector(".current-city");
     currentCityWrap.innerHTML = `${city}`;
     let currentTempWrap = document.querySelector(".current-temp");
-    currentTempWrap.innerHTML = `${temperature}`;
+    currentTempWrap.innerHTML = celsiusTemp;
     let currentHumidityWrap = document.querySelector(".current-humidity");
     currentHumidityWrap.innerHTML = `Humidity: ${humidity}%`;
     let currentWindWrap = document.querySelector(".current-wind");
@@ -70,6 +73,7 @@ currentTime.innerHTML = showCurrentDate(now);
 ////////////search city
 
 let form = document.querySelector("#search-form");
+let celsiusTemp = null;
 form.addEventListener("submit", function (event) {
     event.preventDefault();
     let inputCityWrap = document.querySelector(".search-input");
@@ -106,22 +110,24 @@ citiesList.addEventListener("click", showCityFromList);
 
 
 ///////convert units of temp
-// function toFDegree(temp) {
-//     let fDegree = document.querySelector("#f-degree");
-//     fDegree.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         let tempWrap = document.querySelector(".current-temp");
-//         tempWrap.innerHTML = `${(temp * 9 / 5) + 32}`;
-//     })
-// }
+
+    let fDegree = document.querySelector("#f-degree");
+    fDegree.addEventListener("click", function (event) {
+        event.preventDefault();
+        fDegree.classList.add("active");
+        cDegree.classList.remove("active")
+        let tempWrap = document.querySelector(".current-temp");
+        tempWrap.innerHTML = Math.round((celsiusTemp * 9 / 5) + 32);
+    })
+
+    let cDegree = document.querySelector("#c-degree");
+    cDegree.addEventListener("click", function (event) {
+        event.preventDefault();
+        fDegree.classList.remove("active");
+        cDegree.classList.add("active")
+        let tempWrap = document.querySelector(".current-temp");
+        tempWrap.innerHTML = celsiusTemp;
+    })
 
 
-// function toCDegree(temp) {
-//     let cDegree = document.querySelector("#c-degree");
-//     cDegree.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         let tempWrap = document.querySelector(".current-temp");
-//         tempWrap.innerHTML = `${temp}`;
-//     })
-// }
 
