@@ -2,24 +2,13 @@
 
 function showCityForecast(response) {
     console.log(response.data);
-    let city = response.data.name;
-    celsiusTemp = Math.round(response.data.main.temp);
-    let humidity = response.data.main.humidity;
+    let city = response.data.city;
+    celsiusTemp = Math.round(response.data.temperature.current);
+    let humidity = response.data.temperature.humidity;
     let wind = Math.round(response.data.wind.speed);
-    let weatherDesc = response.data.weather[0].main;
-    
-    // let icon = 
-    const weatherEmoji = {
-        "clear": "☀️",
-        "clouds": "☁️",
-        "rain": "🌧️",
-        "drizzle": "🌧️",
-        "snow": "🌨️",
-        "thunderstorm": "⛈️"
-
-    }
-    // console.log(weatherEmoji[weatherDesc]);
-    // console.log(weatherDesc);
+    let weatherDesc = response.data.condition.description;
+    let weatherIconDescr = response.data.condition.icon;
+    let weatherIconUrl = response.data.condition.icon_url;
     let currentCityWrap = document.querySelector(".current-city");
     currentCityWrap.innerHTML = `${city}`;
     let currentTempWrap = document.querySelector(".current-temp");
@@ -28,8 +17,9 @@ function showCityForecast(response) {
     currentHumidityWrap.innerHTML = `Humidity: ${humidity}%`;
     let currentWindWrap = document.querySelector(".current-wind");
     currentWindWrap.innerHTML = `Wind: ${wind} m/s`;
-    let currentWeatherEmojiWrap = document.querySelector(".current-weather-emoji");
-    currentWeatherEmojiWrap.innerHTML = `${weatherEmoji[(weatherDesc.toLowerCase())]}`;
+    let currentWeatherIconWrap = document.querySelector("#icon");
+    currentWeatherIconWrap.setAttribute("src", `${weatherIconUrl}`);
+    currentWeatherIconWrap.setAttribute("alt", `${weatherIconDescr}`);
     let currentWeatherDescWrap = document.querySelector(".current-weather-desc");
     currentWeatherDescWrap.innerHTML = `${weatherDesc}`;
 }
@@ -40,8 +30,8 @@ function showCityForecast(response) {
 function handlePosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-    let apiKey = "93d43dfe3b4a950e5b187e5dc313705e";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&li`;
+    let apiKey = "0571at3f6f353aad9b4552f8eoe873f5";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric&li`;
     axios.get(apiUrl).then(showCityForecast);
 }
 navigator.geolocation.getCurrentPosition(handlePosition);
@@ -80,8 +70,9 @@ form.addEventListener("submit", function (event) {
     let inputCityValue = (inputCityWrap.value).trim();
     let currentCityWrap = document.querySelector(".current-city");
     if (inputCityValue) {
-        let apiKey = "93d43dfe3b4a950e5b187e5dc313705e";
-        let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCityValue}&appid=${apiKey}&units=metric`;
+        let apiKey = "0571at3f6f353aad9b4552f8eoe873f5";
+        
+        let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${inputCityValue}&key=${apiKey}&units=metric`;
         axios.get(apiUrl)
             .then(showCityForecast)
             .catch((error) => {
@@ -100,8 +91,8 @@ form.addEventListener("submit", function (event) {
 function showCityFromList(event) {
     event.preventDefault();
     let cityClick = event.target;
-    let apiKey = "93d43dfe3b4a950e5b187e5dc313705e";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityClick.id}&appid=${apiKey}&units=metric`;
+    let apiKey = "0571at3f6f353aad9b4552f8eoe873f5";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${cityClick.id}&key=${apiKey}&units=metric`;
     axios.get(apiUrl)
         .then(showCityForecast)
 }
