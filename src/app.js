@@ -30,14 +30,12 @@ function showCityCurrentWeather(response) {
 ////////city forecast
 function showCityForecast(response) {
     let buttons = document.querySelectorAll(".button");
-    console.log(buttons);
     buttons.forEach((button) => {
         button.classList.add("btn", "btn-primary");
         button.innerHTML = `More details`;
 
     })
 
-    console.log(response.data);
     for (let i = 1; i < 6; i++) {
         ///icon
         let weekWeatherIconUrl = response.data.daily[i].condition.icon_url;
@@ -64,8 +62,7 @@ function showCityForecast(response) {
         event.preventDefault();
         let dayClick = event.target;
         let dayNumber = (dayClick.id).charAt(7);
-        dayClick.classList.remove('btn');
-        dayClick.classList.remove('btn-primary');
+        dayClick.classList.remove("btn", "btn-primary");
         let humidity = response.data.daily[dayNumber].temperature.humidity;
         let wind = Math.round(response.data.daily[dayNumber].wind.speed);
         dayClick.innerHTML = `Humidity: ${humidity}%<br/>Wind: ${wind} m/s`;
@@ -73,9 +70,7 @@ function showCityForecast(response) {
 
 }
 
-
 ////////////////current city
-
 function handlePosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
@@ -90,7 +85,6 @@ navigator.geolocation.getCurrentPosition(handlePosition);
 
 
 ////////////currentCityButton
-
 let currentButton = document.querySelector(".button-current");
 currentButton.addEventListener("click", function () {
     navigator.geolocation.getCurrentPosition(handlePosition);
