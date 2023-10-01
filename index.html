@@ -10,11 +10,6 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->
-    <!-- <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,400;10..48,700&display=swap"
-      rel="stylesheet"/> -->
     <link rel="stylesheet" href="src/styles.css" />
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   </head>
@@ -53,58 +48,11 @@
         </div>
         <div class="add-parameters">
           <p class="current-weather-desc"></p>
-          <p class="current-humidity">Humidity:</p>
-          <p class="current-wind">Wind:</p>
+          <p class="current-humidity"></p>
+          <p class="current-wind"></p>
         </div>
       </div>
-      <div class="row week-weather">
-        <div class="card">
-          <div class="card-body" id="card-1">
-            <span><img class="card-icon" src="" alt=""></span>
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <div class="btn btn-primary button" id="button-1">More details</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-body" id="card-2">
-            <span><img class="card-icon" src="" alt=""></span>
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <div class="btn btn-primary button" id="button-2">More details</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-body" id="card-3">
-            <span><img class="card-icon" src="" alt=""></span>
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <div class="btn btn-primary button" id="button-3">More details</div>
-            
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-body" id="card-4">
-            <span><img class="card-icon" src="" alt=""></span>
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <div class="btn btn-primary button" id="button-4">More details</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-body" id="card-5">
-            <span><img class="card-icon" src="" alt=""></span>
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <div class="btn btn-primary button" id="button-5">More details</div>
-          </div>
-        </div>
-      </div>
-      
+      <div class="row week-weather" id="forecast"></div>
     </div>
     <p class="open-source">
       <a href="https://github.com/Tetiana-Breslavska/my-shecodes-project" target="_blank">

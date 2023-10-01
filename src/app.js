@@ -1,7 +1,6 @@
 //////////////////city current weather
 
 function showCityCurrentWeather(response) {
-    console.log(response.data);
     fDegree.classList.remove("active");
     cDegree.classList.add("active")
     let city = response.data.city;
@@ -28,49 +27,50 @@ function showCityCurrentWeather(response) {
 
 
 ////////city forecast
+
 function showCityForecast(response) {
-    let buttons = document.querySelectorAll(".button");
-    buttons.forEach((button) => {
-        button.classList.add("btn", "btn-primary");
-        button.innerHTML = `More details`;
-
+    let forecastElement = document.querySelector('#forecast');
+    let forecastHTML = "";
+    let daysForecast = response.data.daily;
+    daysForecast.forEach(function (day, index) {
+        if (index > 0 && index < 6) {
+            let time = new Date(day.time * 1000);
+            const week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            let dayOfWeek = week[time.getDay()];
+            forecastHTML = forecastHTML + `
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-icon"><img src="${day.condition.icon_url}" alt="${day.condition.description}"></div>
+                        <h5 class="card-title">${dayOfWeek}</h5>
+                        <p class="card-text">
+                            <span class="max">${Math.round(day.temperature.maximum)}&#8451</span>
+                            <span class="min">${Math.round(day.temperature.minimum)}&#8451</span>
+                        </p>
+                        <div class="btn btn-primary button" id ="button-${index}">More details</div>
+                    </div>
+                </div>
+                `;
+        }
     })
+    forecastElement.innerHTML = forecastHTML;
 
-    for (let i = 1; i < 6; i++) {
-        ///icon
-        let weekWeatherIconUrl = response.data.daily[i].condition.icon_url;
-        let weekWeatherIconDescr = response.data.daily[i].condition.description;
-        let weekWeatherIconWrap = document.querySelector(`#card-${i} .card-icon`);
-        weekWeatherIconWrap.setAttribute("src", `${weekWeatherIconUrl}`);
-        weekWeatherIconWrap.setAttribute("alt", `${weekWeatherIconDescr}`);
+    ////////show More details
 
-        ///day
-        let time = new Date(response.data.daily[i].time * 1000);
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        let dayOfWeek = days[time.getDay()];
-        let dayWrap = document.querySelector(`#card-${i} .card-title`);
-        dayWrap.innerHTML = dayOfWeek;
-
-        ///temperature
-        let weekWeatherTemp = Math.round(response.data.daily[i].temperature.day);
-        let weekWeatherTempWrap = document.querySelector(`#card-${i} .card-text`);
-        weekWeatherTempWrap.innerHTML = `${weekWeatherTemp}&#8451;`;
-
-    }
     let weekWeatherWrap = document.querySelector(".week-weather");
     weekWeatherWrap.addEventListener("click", (event) => {
         event.preventDefault();
         let dayClick = event.target;
         let dayNumber = (dayClick.id).charAt(7);
         dayClick.classList.remove("btn", "btn-primary");
+        dayClick.classList.add("more-details");
         let humidity = response.data.daily[dayNumber].temperature.humidity;
         let wind = Math.round(response.data.daily[dayNumber].wind.speed);
         dayClick.innerHTML = `Humidity: ${humidity}%<br/>Wind: ${wind} m/s`;
     });
-
 }
 
 ////////////////current city
+
 function handlePosition(position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
@@ -85,6 +85,7 @@ navigator.geolocation.getCurrentPosition(handlePosition);
 
 
 ////////////currentCityButton
+
 let currentButton = document.querySelector(".button-current");
 currentButton.addEventListener("click", function () {
     navigator.geolocation.getCurrentPosition(handlePosition);
