@@ -1,3 +1,6 @@
+import './index.html';
+import './index.scss';
+
 //////////////////city current weather
 
 function showCityCurrentWeather(response) {
@@ -38,15 +41,17 @@ function showCityForecast(response) {
             const week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             let dayOfWeek = week[time.getDay()];
             forecastHTML = forecastHTML + `
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-icon"><img src="${day.condition.icon_url}" alt="${day.condition.description}"></div>
-                        <h5 class="card-title">${dayOfWeek}</h5>
-                        <p class="card-text">
-                            <span class="max">${Math.round(day.temperature.maximum)}&#8451</span>
-                            <span class="min">${Math.round(day.temperature.minimum)}&#8451</span>
-                        </p>
-                        <div class="btn btn-primary button" id ="button-${index}">More details</div>
+                <div class="col-sm-6 col-md-4 col-lg-2">
+                    <div class="card w-100 m-1">
+                        <div class="card-body">
+                            <div class="card-icon"><img src="${day.condition.icon_url}" alt="${day.condition.description}"></div>
+                            <h5 class="card-title">${dayOfWeek}</h5>
+                            <p class="card-text">
+                                <span class="max">${Math.round(day.temperature.maximum)}&#8451</span>
+                                <span class="min">${Math.round(day.temperature.minimum)}&#8451</span>
+                            </p>
+                            <div class="btn btn-primary button" id ="button-${index}">More details</div>
+                        </div>
                     </div>
                 </div>
                 `;
@@ -79,7 +84,11 @@ function handlePosition(position) {
     axios.get(apiUrl).then(showCityCurrentWeather);
     let apiUrlNextDays = `https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=${apiKey}&units=metric&li`;
     axios.get(apiUrlNextDays)
-        .then(showCityForecast);
+        .then(showCityForecast)
+        .catch ((error) => {
+        alert(`Sorry, we don't know the weather for ${inputCityValue}, try going to https://www.google.com/search?q=weather+${inputCityValue}`)
+    })
+
 }
 navigator.geolocation.getCurrentPosition(handlePosition);
 
@@ -115,7 +124,6 @@ form.addEventListener("submit", function (event) {
     event.preventDefault();
     let inputCityWrap = document.querySelector(".search-input");
     let inputCityValue = (inputCityWrap.value).trim();
-    let currentCityWrap = document.querySelector(".current-city");
     if (inputCityValue) {
         let apiKey = "0571at3f6f353aad9b4552f8eoe873f5";
         let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${inputCityValue}&key=${apiKey}&units=metric`;
@@ -126,7 +134,11 @@ form.addEventListener("submit", function (event) {
             })
         let apiUrlNextDays = `https://api.shecodes.io/weather/v1/forecast?query=${inputCityValue}&key=${apiKey}&units=metric`;
         axios.get(apiUrlNextDays)
-            .then(showCityForecast);
+            .then(showCityForecast)
+            .catch((error) => {
+                alert(`Sorry, we don't know the weather for ${inputCityValue}, try going to https://www.google.com/search?q=weather+${inputCityValue}`)
+            })
+            
     }
     else {
         alert("Enter a city, please!")
@@ -147,7 +159,10 @@ function showCityFromList(event) {
 
     let apiUrlNextDays = `https://api.shecodes.io/weather/v1/forecast?query=${cityClick.id}&key=${apiKey}&units=metric`;
     axios.get(apiUrlNextDays)
-        .then(showCityForecast);
+        .then(showCityForecast)
+        .catch((error) => {
+            alert(`Sorry, we don't know the weather for ${inputCityValue}, try going to https://www.google.com/search?q=weather+${inputCityValue}`)
+        })
 }
 let citiesList = document.querySelector("#citiesList");
 citiesList.addEventListener("click", showCityFromList);
